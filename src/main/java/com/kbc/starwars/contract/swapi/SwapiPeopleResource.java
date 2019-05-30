@@ -11,8 +11,8 @@ import lombok.NoArgsConstructor;
 public class SwapiPeopleResource {
 
     private String name;
-    private Integer height;
-    private Integer mass;
+    private String height;
+    private String mass;
     @JsonProperty("hair_color")
     private String hairColor;
     @JsonProperty("skin_color")

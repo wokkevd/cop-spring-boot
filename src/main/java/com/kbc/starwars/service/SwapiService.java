@@ -3,6 +3,7 @@ package com.kbc.starwars.service;
 import com.kbc.starwars.client.SwapiClient;
 import com.kbc.starwars.contract.PersonResource;
 import com.kbc.starwars.contract.swapi.SwapiPeopleResource;
+import com.kbc.starwars.contract.swapi.SwapiPeopleSearchResource;
 import com.kbc.starwars.factory.PersonResourceFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -31,9 +32,9 @@ public class SwapiService {
     }
 
     public List<PersonResource> findPerson(String search) {
-        ResponseEntity<List<SwapiPeopleResource>> searchResponse = swapiClient.findPeople(search);
+        ResponseEntity<SwapiPeopleSearchResource> searchResponse = swapiClient.findPeople(search);
         if (searchResponse.hasBody() && searchResponse.getBody() != null) {
-            return personResourceFactory.create(searchResponse.getBody());
+            return personResourceFactory.create(searchResponse.getBody().getResults());
         }
         return new ArrayList<>();
     }

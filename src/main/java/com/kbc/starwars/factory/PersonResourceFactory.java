@@ -13,8 +13,8 @@ public class PersonResourceFactory {
     public PersonResource create(SwapiPeopleResource swapiPeopleResource) {
         return PersonResource.builder()
                 .name(swapiPeopleResource.getName())
-                .height(swapiPeopleResource.getHeight())
-                .mass(swapiPeopleResource.getMass())
+                .height("unknown".equals(swapiPeopleResource.getHeight()) ? null : Integer.parseInt(swapiPeopleResource.getHeight()))
+                .mass("unknown".equals(swapiPeopleResource.getMass()) ? null : Integer.parseInt(swapiPeopleResource.getMass()))
                 .hairColor(swapiPeopleResource.getHairColor())
                 .skinColor(swapiPeopleResource.getSkinColor())
                 .eyeColor(swapiPeopleResource.getEyeColor())

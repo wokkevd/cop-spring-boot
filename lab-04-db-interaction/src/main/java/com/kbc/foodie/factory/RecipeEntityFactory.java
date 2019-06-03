@@ -24,13 +24,13 @@ public class RecipeEntityFactory {
         recipeEntity.setInstructions(recipeResource.getInstructions());
         recipeEntity.setPicture(recipeResource.getPicture());
         recipeEntity.setVideo(recipeResource.getVideo());
-        recipeEntity.setIngredientEntities(mapIngredients(recipeResource));
+        recipeEntity.setIngredientEntities(mapIngredients(recipeResource, recipeEntity));
         return recipeEntity;
     }
 
-    private List<IngredientEntity> mapIngredients(RecipeResource recipeResource) {
+    private List<IngredientEntity> mapIngredients(RecipeResource recipeResource, RecipeEntity recipeEntity) {
         return recipeResource.getIngredients().stream()
-                .map(i -> new IngredientEntity(i.getQuantity(), i.getName()))
+                .map(i -> new IngredientEntity(i.getQuantity(), i.getName(), recipeEntity))
                 .collect(Collectors.toList());
     }
 }

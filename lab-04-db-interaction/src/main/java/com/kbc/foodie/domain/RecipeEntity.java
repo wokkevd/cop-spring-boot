@@ -4,16 +4,13 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Type;
-import org.springframework.data.annotation.CreatedDate;
 
-import javax.persistence.Column;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -36,6 +33,6 @@ public class RecipeEntity {
     private String picture;
     private String video;
 
-    @OneToMany(mappedBy = "recipeEntity")
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "recipeEntity")
     private List<IngredientEntity> ingredientEntities;
 }

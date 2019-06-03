@@ -1,6 +1,5 @@
 package com.kbc.foodie.client;
 
-import com.kbc.foodie.contract.mealdb.MealDBRecipeResource;
 import com.kbc.foodie.contract.mealdb.MealDBSearchResource;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;

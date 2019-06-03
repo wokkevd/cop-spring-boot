@@ -36,24 +36,32 @@ public class RecipeService {
             return new ArrayList<>();
         }
         List<RecipeResource> recipeResources = recipeResourceFactory.create(mealDBResponse.getBody().getMeals());
+        //Save all results to the database
         recipeRepository.saveAll(recipeEntityFactory.create(recipeResources));
         return recipeResources;
     }
 
     public Optional<RecipeResource> getRecipe(String recipeId) {
         Optional<RecipeEntity> storedRecipe = recipeRepository.findByRecipeId(recipeId);
+        //If the recipe is found in the database, return that one
         if (storedRecipe.isPresent()) {
             return Optional.of(recipeResourceFactory.create(storedRecipe.get()));
         }
+
         ResponseEntity<MealDBSearchResource> mealDBResponse = theMealDBClient.getRecipe(recipeId);
+        //If the recipe is not found on the TheMealDB, return an empty result
         if (mealDBResponse.getBody() == null) {
             return Optional.empty();
         }
+
         List<MealDBRecipeResource> mealDBRecipes = mealDBResponse.getBody().getMeals();
+        //If multiple recipes exist with the same id, throw an illegal state exception
         if (mealDBRecipes.size() != 1) {
             throw new IllegalStateException("Found multiple recipes for id " + recipeId);
         }
+
         RecipeResource recipeResource = recipeResourceFactory.create(mealDBRecipes.get(0));
+        //Save the retrieved recipe to the database
         recipeRepository.save(recipeEntityFactory.create(recipeResource));
         return Optional.of(recipeResource);
     }

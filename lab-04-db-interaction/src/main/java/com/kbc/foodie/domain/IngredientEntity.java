@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
-import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,7 +11,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import java.util.Date;
 import java.util.UUID;
 
 @Entity
@@ -30,11 +28,12 @@ public class IngredientEntity {
     private String name;
 
     @ManyToOne
-    @JoinColumn(name = "recipe_fk")
+    @JoinColumn(name = "recipe_fk", nullable = false, updatable = false)
     private RecipeEntity recipeEntity;
 
-    public IngredientEntity(String quantity, String name) {
+    public IngredientEntity(String quantity, String name, RecipeEntity recipeEntity) {
         this.quantity = quantity;
         this.name = name;
+        this.recipeEntity = recipeEntity;
     }
 }

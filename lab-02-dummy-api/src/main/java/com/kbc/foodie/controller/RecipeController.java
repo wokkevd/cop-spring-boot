@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/recipes")
+@RequestMapping(value = "/recipes", produces = "application/json")
 public class RecipeController {
 
     private final RecipeService recipeService;

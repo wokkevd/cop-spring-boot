@@ -1,6 +1,5 @@
 package com.kbc.foodie.factory;
 
-import com.google.common.base.Strings;
 import com.kbc.foodie.contract.IngredientResource;
 import com.kbc.foodie.contract.RecipeResource;
 import com.kbc.foodie.contract.mealdb.MealDBRecipeResource;
@@ -54,7 +53,8 @@ public class RecipeResourceFactory {
         ingredients.add(new IngredientResource(mealDBRecipeResource.getStrMeasure19(), mealDBRecipeResource.getStrIngredient19()));
         ingredients.add(new IngredientResource(mealDBRecipeResource.getStrMeasure20(), mealDBRecipeResource.getStrIngredient20()));
         return ingredients.stream()
-                .filter(i -> !Strings.isNullOrEmpty(i.getName()) && !Strings.isNullOrEmpty(i.getName()))
+                .filter(i -> i.getQuantity() != null && !"".equals(i.getQuantity()))
+                .filter(i -> i.getName() != null && !"".equals(i.getName()))
                 .collect(Collectors.toList());
     }
 
